@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <div class="mb-3 row">
+    <label class="col-sm-2 col-form-label">Department ID</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" [(ngModel)]="deptId" placeholder="Enter Department ID" />
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-primary" (click)="fetchEmployees()" [disabled]="loading">Get Employees</button>
+    </div>
+  </div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <table class="table table-bordered table-striped mt-4" *ngIf="employees.length">
+    <thead class="table-dark">
+      <tr>
+        <th>Employee ID</th>
+        <th>Name</th>
+        <th>Designation</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees" (click)="viewEmployee(emp)" style="cursor:pointer;">
+        <td>{{ emp.id }}</td>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.designation }}</td>
+        <td>{{ emp.email }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="!loading && employees.length === 0 && deptId">
+    <p>No employees found for Department ID {{ deptId }}</p>
+  </div>
+</div>

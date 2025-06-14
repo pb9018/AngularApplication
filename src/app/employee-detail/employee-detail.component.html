@@ -1,0 +1,30 @@
+<div class="container mt-4" *ngIf="!loading">
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div *ngIf="employee && !editing">
+    <h3>Employee Details</h3>
+    <p><strong>ID:</strong> {{ employee.id }}</p>
+    <p><strong>Name:</strong> {{ employee.name }}</p>
+    <p><strong>Designation:</strong> {{ employee.designation }}</p>
+    <p><strong>Email:</strong> {{ employee.email }}</p>
+    <button class="btn btn-warning me-2" (click)="enableEdit()">Edit</button>
+    <button class="btn btn-danger" (click)="delete()">Delete</button>
+    <button class="btn btn-secondary ms-2" (click)="router.navigate(['/'])">Back</button>
+  </div>
+  <form *ngIf="editing" (ngSubmit)="save()">
+    <h3>Edit Employee</h3>
+    <div class="mb-3">
+      <label>Name</label>
+      <input class="form-control" [(ngModel)]="formData.name" name="name" required />
+    </div>
+    <div class="mb-3">
+      <label>Designation</label>
+      <input class="form-control" [(ngModel)]="formData.designation" name="designation" />
+    </div>
+    <div class="mb-3">
+      <label>Email</label>
+      <input class="form-control" [(ngModel)]="formData.email" name="email" type="email" />
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+    <button class="btn btn-secondary ms-2" (click)="editing=false; $event.preventDefault();">Cancel</button>
+  </form>
+</div>
